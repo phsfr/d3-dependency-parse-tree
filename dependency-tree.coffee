@@ -19,8 +19,8 @@ window.drawTree = (svgElement, conllData) ->
         for item in data
                 item.bottom = treeHeight - 1.8 * wordHeight
                 item.top = item.bottom - levelHeight(item.level)
-                item.left = treeWidth - item.id * wordWidth
-                item.right = treeWidth -  item.parent * wordWidth
+                item.left = item.id * wordWidth
+                item.right = item.parent * wordWidth
                 item.mid = (item.right+item.left)/2
                 item.diff = (item.right-item.left)/4
                 item.arrow = item.top + (item.bottom-item.top)*.25
@@ -33,7 +33,7 @@ window.drawTree = (svgElement, conllData) ->
                 .append('text')
                 .text((d) -> d.word)
                 .attr('class', (d) -> "word w#{d.id}")
-                .attr('x', (d) -> treeWidth - wordWidth*d.id)
+                .attr('x', (d) -> wordWidth*d.id)
                 .attr('y', treeHeight-wordHeight)
                 .on 'mouseover', (d) ->
                         svg.selectAll('.word, .dependency, .edge, .arrow').classed('active', false)

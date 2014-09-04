@@ -56,8 +56,8 @@
       item = data[_k];
       item.bottom = treeHeight - 1.8 * wordHeight;
       item.top = item.bottom - levelHeight(item.level);
-      item.left = treeWidth - item.id * wordWidth;
-      item.right = treeWidth - item.parent * wordWidth;
+      item.left = item.id * wordWidth;
+      item.right = item.parent * wordWidth;
       item.mid = (item.right + item.left) / 2;
       item.diff = (item.right - item.left) / 4;
       item.arrow = item.top + (item.bottom - item.top) * .25;
@@ -69,7 +69,7 @@
     }).attr('class', function(d) {
       return "word w" + d.id;
     }).attr('x', function(d) {
-      return treeWidth - wordWidth * d.id;
+      return wordWidth * d.id;
     }).attr('y', treeHeight - wordHeight).on('mouseover', function(d) {
       svg.selectAll('.word, .dependency, .edge, .arrow').classed('active', false);
       svg.selectAll('.tag').attr('opacity', 0);
