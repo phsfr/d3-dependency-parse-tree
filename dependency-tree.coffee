@@ -5,7 +5,7 @@ levelHeight = (level) -> 2 + Math.pow(level, 1.8) * 10
 
 window.drawTree = (svgElement, conllData) ->
         svg = d3.select(svgElement)
-        data = parseConll(conllData)
+        data = parseConll2009(conllData)
 
         # compute edge levels
         edges = (item for item in data when item.id)
@@ -91,3 +91,12 @@ parseConll = (conllData) ->
                 data.push id: Number(id), word: word, tag: tag, parent: Number(parent), dependency: dependency, level: 1
         data
 
+
+parseConll2009 = (conllData) ->
+        data = []
+        data.push id: 0, word: 'ROOT', tag: 'ROOT', level: 0
+        for line in conllData.split('\n') when line
+                [id, word, _, _, pos, ppos, _, _, head, phead, deprel, pdeprel, _, _] = line.split('\t')
+                tag = ppos
+                data.push id: Number(id), word: word, tag: tag, parent: Number(phead), dependency: pdeprel, level: 1
+        data
