@@ -2,7 +2,7 @@
 (function() {
   var levelHeight, maximum, parseConll, parseConll2009, under, wordHeight, wordWidth;
 
-  wordWidth = 60;
+  wordWidth = 80;
 
   wordHeight = 20;
 
