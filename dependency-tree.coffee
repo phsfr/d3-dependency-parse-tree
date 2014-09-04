@@ -84,17 +84,10 @@ under = (edge1, edge2) ->
 
 parseConll = (conllData) ->
         data = []
-        data.push id: 0, word: 'ریشه', tag: tagDict['ROOT'], level: 0
+        data.push id: 0, word: 'ROOT', tag: 'ROOT', level: 0
         for line in conllData.split('\n') when line
                 [id, word, _, cpos, fpos, _, parent, dependency] = line.split('\t')
-                tag = if cpos != fpos then tagDict[cpos]+' '+tagDict[fpos] else tagDict[cpos]
-                data.push id: Number(id), word: word, tag: tag, parent: Number(parent), dependency: dependencyDict[dependency], level: 1
+                tag = if cpos != fpos then cpos+' '+fpos else cpos
+                data.push id: Number(id), word: word, tag: tag, parent: Number(parent), dependency: dependency, level: 1
         data
 
-
-# dictionary
-dependencyDict =
-        '': '', 'NE': 'اسم‌یار', 'PART': 'افزودۀ پرسشی فعل', 'APP': 'بدل', 'NCL': 'بند اسم', 'AJUCL': 'بند افزودۀ فعل', 'PARCL': 'بند فعل وصفی', 'TAM': 'تمییز', 'NPRT': 'جزء اسمی', 'LVP': 'جزء همکرد', 'NPP': 'حرف اضافه اسم', 'VPRT': 'حرف اضافه فعلی', 'COMPPP': 'حرف اضافۀ تفضیلی', 'ROOT': 'ریشه جمله', 'NPOSTMOD': 'صفت پسین اسم', 'NPREMOD': 'صفت پیشین اسم', 'PUNC': 'علائم نگارشی', 'SBJ': 'فاعل', 'NVE': 'فعل‌یار', 'ENC': 'فعل‏یار پی‏بستی', 'ADV': 'قید', 'NADV': 'قید اسم', 'PRD': 'گزاره', 'ACL': 'متمم بندی صفت', 'VCL': 'متمم بندی فعل', 'AJPP': 'متمم حرف اضافه‌ای صفت', 'ADVC': 'متمم قیدی فعل', 'NEZ': 'متمم نشانۀ اضافه‌ای صفت', 'PROG': 'مستمرساز', 'MOS': 'مسند', 'MOZ': 'مضافٌ‌الیه', 'OBJ': 'مفعول', 'VPP': 'مفعول حرف اضافه‌ای', 'OBJ2': 'مفعول دوم', 'MESU': 'ممیز', 'AJCONJ': 'هم‌پایه صفت', 'PCONJ': 'هم‌پایۀ حرف اضافه', 'NCONJ': 'هم‏پایه اسم', 'VCONJ': 'هم‏پایه فعل', 'AVCONJ': 'هم‏پایه قید', 'POSDEP': 'وابسته پسین', 'PREDEP': 'وابسته پیشین', 'APOSTMOD': 'وابستۀ پسین صفت', 'APREMOD': 'وابستۀ پیشین صفت'
-
-tagDict =
-        '': '', '1': 'اول', '2': 'دوم', '3': 'سوم', 'ACT': 'معلوم', 'ADJ': 'صفت', 'ADR': 'نقش نمای ندا', 'ADV': 'قید', 'AJCM': 'تفضیلی', 'AJP': 'مطلق', 'AJSUP': 'عالی', 'AMBAJ': 'صفت مبهم', 'ANM': 'جاندار', 'AVCM': 'تفضیلی', 'AVP': 'مطلق', 'AY': 'آینده اخباری', 'CL': 'سببی', 'COM': 'تفضیلی', 'CONJ': 'نقش نمای همپایگی', 'CREFX': 'بازتابی مشترک', 'DEMAJ': 'صفت اشاره', 'DEMON': 'اشاره', 'DET': 'حرف تعریف', 'EXAJ': 'صفت تعجبی', 'GB': 'گذشته بعید اخباری', 'GBEL': 'گذشته بعید التزامی', 'GBES': 'گذشته بعید استمراری اخباری', 'GBESE': 'گذشته بعید استمراری التزامی', 'GEL': 'گذشته التزامی', 'GES': 'گذشته استمراری اخباری', 'GESEL': 'گذشته استمراری التزامی', 'GN': 'گذشته نقلی اخباری', 'GNES': 'گذشته نقلی استمراری اخباری', 'GS': 'گذشته ساده اخباری', 'H': 'حال اخباری', 'HA': 'حال امری', 'HEL': 'حال التزامی', 'IANM': 'بی جان', 'IDEN': 'شاخص', 'INTG': 'پرسشی', 'ISO': 'واژه تنها', 'JOPER': 'شخصی پیوسته', 'MODE': 'وجه', 'MODL': 'وجهی', 'N': 'اسم', 'NUM': 'شمار', 'NXT': 'چسبیدگی از چپ', 'PART': 'جزء دستوری', 'PASS': 'مجهول', 'PERS': 'شخص', 'PLUR': 'جمع', 'POSADR': 'پسین', 'POSNUM': 'صفت شمارشی پسین', 'POST': 'مطلق', 'POSTP': 'حرف اضافه پسین', 'PR': 'ضمیر', 'PRADR': 'پیشین', 'PREM': 'پیش توصیفگر', 'PRENUM': 'صفت شمارشی پیشین', 'PREP': 'حرف اضافه پیشین', 'PRV': 'چسبیدگی از راست', 'PSUS': 'شبه جمله', 'PUNC': 'علامت نگارشی', 'QUAJ': 'صفت پرسشی', 'RECPR': 'متقابل', 'SADV': 'مختص', 'SEPER': 'شخصی جدا', 'SING': 'مفرد', 'SUBR': 'نقش نمای وابستگی', 'SUP': 'عالی', 'UCREFX': 'بازتابی غیرمشترک', 'V': 'فعل', 'ROOT': ''
