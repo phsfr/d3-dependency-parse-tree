@@ -11,7 +11,7 @@
   };
 
   window.drawTree = function(svgElement, conllData) {
-    var arrows, data, dependencies, e, edge, edges, item, svg, tags, treeHeight, treeWidth, triangle, words, _i, _j, _k, _len, _len1, _len2;
+    var arrows, data, dependencies, e, edge, edges, item, leftOffset, svg, tags, treeHeight, treeWidth, triangle, words, _i, _j, _k, _len, _len1, _len2;
     svg = d3.select(svgElement);
     data = parseConll2009(conllData);
     edges = (function() {
@@ -43,6 +43,7 @@
       }
     }
     treeWidth = wordWidth * data.length - wordWidth / 3;
+    leftOffset = treeWidth / 40;
     treeHeight = levelHeight(maximum((function() {
       var _k, _len2, _results;
       _results = [];
@@ -56,8 +57,8 @@
       item = data[_k];
       item.bottom = treeHeight - 1.8 * wordHeight;
       item.top = item.bottom - levelHeight(item.level);
-      item.left = item.id * wordWidth;
-      item.right = item.parent * wordWidth;
+      item.left = leftOffset + item.id * wordWidth;
+      item.right = leftOffset + item.parent * wordWidth;
       item.mid = (item.right + item.left) / 2;
       item.diff = (item.right - item.left) / 4;
       item.arrow = item.top + (item.bottom - item.top) * .25;
@@ -69,7 +70,7 @@
     }).attr('class', function(d) {
       return "word w" + d.id;
     }).attr('x', function(d) {
-      return wordWidth * d.id;
+      return leftOffset + wordWidth * d.id;
     }).attr('y', treeHeight - wordHeight).on('mouseover', function(d) {
       svg.selectAll('.word, .dependency, .edge, .arrow').classed('active', false);
       svg.selectAll('.tag').attr('opacity', 0);
@@ -84,7 +85,7 @@
     }).attr('class', function(d) {
       return "tag w" + d.id;
     }).attr('x', function(d) {
-      return treeWidth - wordWidth * d.id;
+      return leftOffset + wordWidth * d.id;
     }).attr('y', treeHeight).attr('opacity', 0);
     edges = svg.selectAll('.edge').data(data).enter().append('path').filter(function(d) {
       return d.id;

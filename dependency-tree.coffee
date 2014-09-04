@@ -15,12 +15,13 @@ window.drawTree = (svgElement, conllData) ->
 
         # compute height
         treeWidth = wordWidth*data.length - wordWidth/3
+        leftOffset = treeWidth/40
         treeHeight = levelHeight(maximum(edge.level for edge in data)) + 2 * wordHeight
         for item in data
                 item.bottom = treeHeight - 1.8 * wordHeight
                 item.top = item.bottom - levelHeight(item.level)
-                item.left = item.id * wordWidth
-                item.right = item.parent * wordWidth
+                item.left = leftOffset + item.id * wordWidth
+                item.right = leftOffset + item.parent * wordWidth
                 item.mid = (item.right+item.left)/2
                 item.diff = (item.right-item.left)/4
                 item.arrow = item.top + (item.bottom-item.top)*.25
@@ -33,7 +34,7 @@ window.drawTree = (svgElement, conllData) ->
                 .append('text')
                 .text((d) -> d.word)
                 .attr('class', (d) -> "word w#{d.id}")
-                .attr('x', (d) -> wordWidth*d.id)
+                .attr('x', (d) -> leftOffset + wordWidth*d.id)
                 .attr('y', treeHeight-wordHeight)
                 .on 'mouseover', (d) ->
                         svg.selectAll('.word, .dependency, .edge, .arrow').classed('active', false)
@@ -48,7 +49,7 @@ window.drawTree = (svgElement, conllData) ->
                 .append('text')
                 .text((d) -> d.tag)
                 .attr('class', (d) -> "tag w#{d.id}")
-                .attr('x', (d) -> treeWidth - wordWidth*d.id)
+                .attr('x', (d) -> leftOffset + wordWidth*d.id)
                 .attr('y', treeHeight)
                 .attr('opacity', 0)
 
