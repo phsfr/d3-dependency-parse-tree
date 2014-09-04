@@ -1,5 +1,5 @@
 
-wordWidth = 80
+wordWidth = 90
 wordHeight = 20
 levelHeight = (level) -> 2 + Math.pow(level, 1.8) * 10
 
