@@ -11,8 +11,8 @@ into an HTML file with visualizations of the dependency parse trees.
 
 HTML_HEADER = """<html>
 <head>
-	<meta charset="utf-8">
-	<title>Dependency Parse Tree visualization using d3.js</title>
+    <meta charset="utf-8">
+    <title>Dependency Parse Tree visualization using d3.js</title>
 </head>
 <body>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,9 +25,9 @@ HTML_HEADER = """<html>
 
 HTML_SENTENCE = """
 <div class="container">
-<h2>{title}</h2>
+    <h2>{title}</h2>
 <div class="tree" id="s{sentence_id}">
-	<svg height="0"></svg>
+    <svg height="0"></svg>
 </div>
 <textarea id="data{sentence_id}" class="form-control" style="display:none;">
 {conll}
@@ -52,7 +52,7 @@ def conll2html(input_file, output_file):
     for i, conll_str in enumerate(conll_doc.strip().split('\n\n')):
         sentence = ' '.join(line.split()[1] for line in conll_str.split('\n'))
         output_file.write(HTML_SENTENCE.format(title=sentence, conll=conll_str, sentence_id=i))
-    output_file.write(HTML_FOOTER)  
+    output_file.write(HTML_FOOTER)
 
 
 if __name__ == '__main__':
