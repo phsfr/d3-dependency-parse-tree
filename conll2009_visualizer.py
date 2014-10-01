@@ -52,8 +52,9 @@ def conll2html(input_file, output_file):
     conll_doc = input_file.read()
 
     output_file.write(HTML_HEADER)
-    for i, sentence in enumerate(conll_doc.strip().split('\n\n')):
-        output_file.write(HTML_SENTENCE.format(title=i, conll=sentence, sentence_id=i))
+    for i, conll_str in enumerate(conll_doc.strip().split('\n\n')):
+        sentence = ' '.join(line.split()[1] for line in conll_str.split('\n'))
+        output_file.write(HTML_SENTENCE.format(title=sentence, conll=conll_str, sentence_id=i))
     output_file.write(HTML_FOOTER)  
 
 
