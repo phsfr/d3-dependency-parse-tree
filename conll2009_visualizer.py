@@ -29,16 +29,13 @@ HTML_SENTENCE = """
 <div class="tree" id="s{sentence_id}">
 	<svg height="0"></svg>
 </div>
-<textarea id="data{sentence_id}" class="form-control">
+<textarea id="data{sentence_id}" class="form-control" style="display:none;">
 {conll}
 </textarea>
 <button id="draw{sentence_id}" class="btn btn-default">draw</button>
 </div>
 <script type="text/javascript">
-	d3.select('#draw{sentence_id}').on('click', function() {{
-		drawTree('#s{sentence_id}.tree svg', d3.select('#data{sentence_id}')[0][0].value, false);
-	}});
-	d3.select('#draw{sentence_id}').on('click')();
+    drawTree('#s{sentence_id}.tree svg', d3.select('#data{sentence_id}')[0][0].value, false);
 </script>
 """
 
