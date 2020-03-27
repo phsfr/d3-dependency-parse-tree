@@ -1,5 +1,5 @@
 body {
-	direction: ltr;
+	direction: rtl;
 }
 
 h2 {
@@ -16,7 +16,7 @@ h2 {
 }
 
 textarea {
-	direction: ltr;
+	direction: rtl;
 	font-family: serif;
 	tab-size: 15;
 	min-height: 300px;
